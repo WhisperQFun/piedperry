@@ -80,11 +80,19 @@ namespace hr_hackaton_mysql.Models
     public class Game
     {
         public int id { get; set; }
-        public string chapter { get; set; }
+        public string type { get; set; }
         public string text { get; set; }
         public string chose_1 { get; set; }
         public string chose_2 { get; set; }
         public string item_1 { get; set; }
         public string item_2 { get; set; }
+        public string right_answer { get; set; }
+        public int score { get; set; }
+    }
+
+    public class list_game
+    {
+        public string category_name { get; set; }
+
     }
 }

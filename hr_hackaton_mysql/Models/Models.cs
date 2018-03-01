@@ -69,5 +69,28 @@ namespace hr_hackaton_mysql.Models
         public string date { get; set; }
     }
 
-    
+    public class GameModel
+    {
+        [Required]
+        public string id { get; set; }
+        [Required]
+        public string type { get; set; }
+        [Required]
+        public string text { get; set; }
+        [Required]
+        public string chose_1 { get; set; }
+        [Required]
+        public string chose_2 { get; set; }
+        [Required]
+        public string item_1 { get; set; }
+        [Required]
+        public string item_2 { get; set; }
+        [Required]
+        public string right_answer { get; set; }
+        [Required]
+        public int score { get; set; }
+        
+    }
+   
+
 }

@@ -293,10 +293,13 @@
     <Content Include="Views\Api\Index.cshtml" />
     <Content Include="Views\Account\Resume.cshtml" />
     <Content Include="Views\Game\Play.cshtml" />
+    <Content Include="Views\Event\Add.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Game\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

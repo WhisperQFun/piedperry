@@ -292,8 +292,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Api\Index.cshtml" />
     <Content Include="Views\Account\Resume.cshtml" />
-    <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Game\Play.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

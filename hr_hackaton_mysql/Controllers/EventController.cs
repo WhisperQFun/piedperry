@@ -1,6 +1,7 @@
 ﻿using hr_hackaton_mysql.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,12 +20,33 @@ namespace hr_hackaton_mysql.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit()
         {
+
+
+            EventsModel model = new EventsModel();
+            User user = null;
+            Events events = null;
+            using (UserContext db = new UserContext())
+            {
+                user = db.Users.FirstOrDefault(u => u.email == User.Identity.Name);
+                events = db.Events.FirstOrDefault(u => u.admin_id == user.id);
+            }
+            if (events != null)
+            {
+
+                model.name = events.name;
+                model.description = events.description;
+                model.date = events.date;
+                return View(model);
+            }
+
+
             return View();
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "hr,admin")]
         public ActionResult Edit(EventsModel model)
         {
             if (ModelState.IsValid)
@@ -66,6 +88,18 @@ namespace hr_hackaton_mysql.Controllers
                 }
                 else
                 {
+                    using (UserContext db = new UserContext())
+                    {
+                        events.name = model.name;
+                        events.description = model.description;
+                        events.date = model.date;
+                        events.admin_id = user.id;
+
+                        db.Events.AddOrUpdate(events);
+                        db.SaveChanges();
+
+
+                    }
                     ModelState.AddModelError("", "Успешное редактирование");
                 }
             }

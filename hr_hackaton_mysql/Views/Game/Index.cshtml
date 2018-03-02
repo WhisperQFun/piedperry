@@ -9,23 +9,21 @@
 {
     @Html.AntiForgeryToken()
 
-    for (int i = 0; i < Model.Count; i++)
+    foreach (var games in Model)
     {
         <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="~/Content/img/default.svg" alt="Card image cap ">
             <div class="card-body">
-                <h5 class="card-title">@Html.EditorFor(m => m[i].category_name)</h5>
+                <h5 class="card-title">@Html.Raw(games.category_name)</h5>
                 <p class="card-text"></p>
-                <a href="@Url.Action("Play", "Game",new {category= Model[i].category_name,answer="0" ,id="25" },null)" class="btn btn-primary">Играть</a>
+                <p>@games.category_name</p>
+                <a href="@Url.Action("Play", "Game",new {category=games.category_name_english,answer="0" ,id_game="25" },null)" class="btn btn-primary">Играть</a>
             </div>
 
         </div>
-
-
-
-
-
     }
+
+    
 
 
 

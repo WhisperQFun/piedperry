@@ -5,10 +5,14 @@
 }
 
 
+        <div class="container">
+            <div class="container-fluid">
+                <p>@Model.text</p>
+                <br/>
+                <a href="@Url.Action("Play", "Game",new {category=Model.type,answer="1" ,id_game="25" },null)" class="btn btn-primary">@Model.chose_1</a>
+                <a href="@Url.Action("Play", "Game",new {category=Model.type,answer="2" ,id_game="25" },null)" class="btn btn-primary">@Model.chose_2</a>
+            </div>
+        </div>
 
-
-{
-    @Model.text
-}
 
 

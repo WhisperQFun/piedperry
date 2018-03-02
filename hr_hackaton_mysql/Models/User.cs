@@ -93,6 +93,7 @@ namespace hr_hackaton_mysql.Models
     public class list_game
     {
         public string category_name { get; set; }
+        public string category_name_english { get; set; }
 
     }
 }

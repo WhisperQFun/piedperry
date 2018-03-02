@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using hr_hackaton_mysql.Logic;
 
 
 
@@ -19,21 +20,27 @@ namespace hr_hackaton_mysql.Controllers
         {
             using (UserContext db = new UserContext())
             {
+                var utf8 = new UTF8();
                 List<list_game> ls = new List<list_game>();
                 ls.Add(new list_game());
                 ls[0].category_name = "Xоррор";
+                ls[0].category_name_english = "horror";
                 ls.Add(new list_game());
                 ls[1].category_name = "Космос";
+                ls[1].category_name_english = "space";
                 ls.Add(new list_game());
                 ls[2].category_name = "Выживание";
+                ls[2].category_name_english = utf8.encode(ls[2].category_name);
                 ls.Add(new list_game());
                 ls[3].category_name = "Королевская битва";
+                ls[3].category_name_english = utf8.encode(ls[3].category_name);
                 ls.Add(new list_game());
                 ls[4].category_name = "Детектив";
+                ls[4].category_name_english = utf8.encode(ls[4].category_name);
                 ls.Add(new list_game());
                 ls[5].category_name = "Джунгли";
-                ls.Add(new list_game());
-                ls[6].category_name = "";
+                ls[5].category_name_english = utf8.encode(ls[5].category_name);
+
                 return View(ls);
 
             }
@@ -45,9 +52,9 @@ namespace hr_hackaton_mysql.Controllers
             Game games_1 = new Game();
             Game games = new Game();
             GameModel model = new GameModel();
-            if (this.Request.QueryString != null && this.Request.QueryString["category"] != null && this.Request.QueryString["answer"] != null && this.Request.QueryString["id"] != null)
+            if (this.Request.QueryString != null && this.Request.QueryString["category"] != null && this.Request.QueryString["answer"] != null && this.Request.QueryString["id_game"] != null)
             {
-                var str = this.Request.QueryString["id"];
+                var str = this.Request.QueryString["id_game"];
                 games_1.id = Convert.ToInt32(str);
                 games_1.type = this.Request.QueryString["category"];
 
@@ -61,7 +68,7 @@ namespace hr_hackaton_mysql.Controllers
                 
 
 
-                if (games.text != null)
+                if (games != null)
                 {
                     model.id = Convert.ToString(games.id);
                     model.text = games.text;
@@ -76,7 +83,7 @@ namespace hr_hackaton_mysql.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Play");
+                    return RedirectToAction("Index", "Game");
                 }
 
                 
@@ -84,7 +91,7 @@ namespace hr_hackaton_mysql.Controllers
             else
             {
 
-                return RedirectToAction("Index", "Play");
+                return RedirectToAction("Index", "Game");
 
             }
 

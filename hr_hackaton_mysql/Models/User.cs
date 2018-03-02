@@ -96,4 +96,9 @@ namespace hr_hackaton_mysql.Models
         public string category_name_english { get; set; }
 
     }
+
+    public class  events
+    {
+        List<Events> Events { get; set; }
+    }
 }

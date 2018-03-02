@@ -192,7 +192,7 @@ namespace hr_hackaton_mysql.Controllers
             Game games_1 = new Game();
             Game games = new Game();
             GameModel model = new GameModel();
-            if (this.Request.QueryString != null && this.Request.QueryString["category"] != null && this.Request.QueryString["answer"] != null && this.Request.QueryString["id_game"] != null)
+            if (this.Request.QueryString != null && this.Request.QueryString["category"] != null && this.Request.QueryString["answer"] != null && this.Request.QueryString["id_game"] != null && this.Request.QueryString["score"] != null)
             {
                 if (this.Request.QueryString["key"] == "ee85d34b-8443-4c8d-9369-0cfb04c2d79d")
                 {
@@ -201,6 +201,8 @@ namespace hr_hackaton_mysql.Controllers
                         var str = this.Request.QueryString["id_game"];
                         games_1.id = Convert.ToInt32(str);
                         games_1.type = this.Request.QueryString["category"];
+                        str = this.Request.QueryString["score"]; 
+                        games_1.score = Convert.ToInt32(str);
 
                         try
                         {

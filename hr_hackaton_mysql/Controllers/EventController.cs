@@ -18,13 +18,82 @@ namespace hr_hackaton_mysql.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Events> events = null;
+
+            
+            using (UserContext db = new UserContext())
+            {
+                events = db.Events.ToList<Events>();
+
+
+            }
+            /*events.Add(new Events());
+            events[0].name = "Первое мероприятие";
+            events[0].description = "Очень важное мероприятие";
+            events[0].date = "19.12.2050";*/
+            return View(events);
         }
 
+        [Authorize(Roles = "hr,admin")]
         public ActionResult Add()
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "hr,admin")]
+        public ActionResult Edit(EventsModel model)
+        {
+           
+                if (ModelState.IsValid)
+                {
+                    User user = null;
+                    Events events = null;
+                    Events events1 = new Events();
+                    using (UserContext db = new UserContext())
+                    {
+                        events = db.Events.FirstOrDefault(u => u.name == model.name);
+                        user = db.Users.Where(u => u.email == User.Identity.Name).FirstOrDefault();
+                    }
+                    if (events == null)
+                    {
+                        // создаем нового пользователя
+                        using (UserContext db = new UserContext())
+                        {
+                            db.Events.Add(new Events
+                            {
+                                name = model.name,
+                                description = model.description,
+                                date = model.date,
+                                admin_id = user.id
+
+
+                            });
+                            db.SaveChanges();
+
+                            events = db.Events.Where(u => u.name == model.name && u.date == model.date).FirstOrDefault();
+                        }
+                        // если пользователь удачно добавлен в бд
+                        if (events != null)
+                        {
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Данное мероприятие уже существует");
+                        return View(model);
+                    }
+
+
+                    return View(model);
+                }
+            return View(model);
+        }
+        
+
+
 
         [Authorize(Roles = "hr,admin")]
         public ActionResult Edit()
@@ -34,10 +103,12 @@ namespace hr_hackaton_mysql.Controllers
                 EventsModel model = new EventsModel();
                 User user = null;
                 Events events = null;
+                Events events1 = null;
                 using (UserContext db = new UserContext())
                 {
+                    events1.admin_id = Convert.ToInt32(Request.QueryString["id"]);
                     user = db.Users.FirstOrDefault(u => u.email == User.Identity.Name);
-                    events = db.Events.FirstOrDefault(u => u.id == Convert.ToInt32(Request.QueryString["id"]));
+                    events = db.Events.FirstOrDefault(u => u.id == events1.admin_id);
                 }
                 if (events != null)
                 {
@@ -47,16 +118,42 @@ namespace hr_hackaton_mysql.Controllers
                     model.date = events.date;
                     return View(model);
                 }
+                else
+                {
+                    using (UserContext db = new UserContext())
+                    {
+                        db.Events.Add(new Events
+                        {
+                            name = model.name,
+                            description = model.description,
+                            date = model.date,
+                            admin_id = user.id
+
+                        });
+                        db.SaveChanges();
+                        if (events != null) { return RedirectToAction("Index", "Home"); }
+                        else
+                        {
+                            return View(model);
+                        }
+
+                    }
+
+                }
 
             }
-
-
-
+            else
+            {
+                return View();
+            }
             return View();
-            
         }
 
-        [HttpPost]
+            
+            
+        
+
+        
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "hr,admin")]
         public ActionResult Add(EventsModel model)

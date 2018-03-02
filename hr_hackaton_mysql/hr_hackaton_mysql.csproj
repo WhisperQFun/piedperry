@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\ShaEncoder.cs" />
+    <Compile Include="Logic\Tags.cs" />
     <Compile Include="Logic\UTF8.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\User.cs" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Event\Add.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

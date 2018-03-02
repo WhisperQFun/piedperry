@@ -12,9 +12,18 @@ namespace hr_hackaton_mysql.Controllers
 
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            User user = new User();
+            
+            
+            using (UserContext db = new UserContext())
+            {
+                user = db.Users.FirstOrDefault(u => u.email == User.Identity.Name);
+                
+            }
+            return View(user);
         }
 
         [Authorize(Roles ="admin")]

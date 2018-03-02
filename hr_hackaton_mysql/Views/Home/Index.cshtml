@@ -1,8 +1,72 @@
-﻿@{
+﻿@model hr_hackaton_mysql.Models.User
+
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<p>@User.Identity.Name.ToString()</p>
-<p>@User.Identity.IsAuthenticated.ToString()</p>
+</nav>
+<!--   -->
+
+<ul class="nav nav-tabs">
+    <li class="nav-item active">
+        <a class="nav-link " href="lc_template.html">Резюме</a>
+    </li>
+    <li class="nav-item  ">
+        <a class="nav-link " href="#">Отклики</a>
+    </li>
+    <li class="nav-item  ">
+        <a class="nav-link " href="#">Настройки</a>
+    </li>
+    <li class="nav-item  ">
+        <a class="nav-link " href="#">Мероприятия</a>
+    </li>
+</ul>
+<div class="contenier ml-3 mt-4">
+    <div class="contenier-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-xl-2">
+                    <h6 class="">Приветствую, @Model.first_name @Model.last_name</h6>
+                    <img src="~/Content/img/human.jpg" alt="" class="img-thumbnail" height="200" width="200">
+
+                </div>
+                <div class="col-lg-6 col-xl-4">
+                    <h4>Обо мне:</h4>
+                    <p>Имя: @Model.first_name</p>
+                    <p>Фамилия: @Model.last_name</p>
+                    <p>Отчество: @Model.middle_name</p>
+                    <p>Пол: @Model.UserGender</p>
+                    <p>Обо мне:</p><p>
+                        @Model.about_me
+                    </p>
+                    <p>Рейтинг:</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @Model.rating%;" aria-valuenow="@Model.rating" aria-valuemin="0" aria-valuemax="100">@Model.rating%</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4">
+                    <h4>Теги:</h4>
+                    <div class="container">
+                        <span class="badge badge-pill badge-info">C#</span>
+                        <span class="badge badge-pill badge-info">C++</span>
+                        <span class="badge badge-pill badge-info">Python</span>
+                        <span class="badge badge-pill badge-info">Assembler</span>
+                        <span class="badge badge-pill badge-info">C</span>
+                        <span class="badge badge-pill badge-info">Hyper-V</span>
+                        <span class="badge badge-pill badge-info">MySQL</span>
+                        <span class="badge badge-pill badge-info">PostgreSQL</span>
+                        <span class="badge badge-pill badge-info">WPF</span>
+                        <span class="badge badge-pill badge-info">Xamarin</span>
+                        <span class="badge badge-pill badge-info">Junior</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
